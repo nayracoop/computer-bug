@@ -1,14 +1,21 @@
 class TextLine {
   
+  float x = 30;
+  float y = 120;
   int n = 0;
   int t = millis();
   int tCursor = millis(); 
-  int cadence = 60;
-  int cadenceOffset = 0;
+  int rate = 60;
+  int rateOffset = 0;
   int delay = 0;
+  float fontSize = 56;
   String text = "";
   String line = "";
   
+  int align = LEFT;
+  int valign = TOP;
+  
+  boolean cursor = true;
   boolean typing = false;
   boolean ended = false;
   
@@ -17,16 +24,12 @@ class TextLine {
   }
   
   TextLine(String _text) {
-    
-     text = _text;
-     
+    text = _text;
   }
   
   void setText(String _text) {
-    
     text = _text;
     clean();
-    
   }
   
   void play() {
@@ -46,18 +49,27 @@ class TextLine {
   
   void type() {
     
-    textAlign(LEFT, TOP);
-    textSize(56);
+    textAlign(align, valign);
+    textSize(fontSize);
     
-    if(n < text.length() && millis()-t > cadence+cadenceOffset && (typing && millis()>delay)) {
+    if(n < text.length() && millis()-t > rate+rateOffset && (typing && millis()>delay)) {
       t = tCursor = millis();
-      cadenceOffset = (text.charAt(n) == ' ') ? 60 : 0;
+      rateOffset = (text.charAt(n) == ' ') ? 2*rate : 0;
       line += text.charAt(n++);
     }
     
-    text(((millis()-t)%500>250) ? line : line + '|', 30, 140);
-    if(!ended && n >= text.length()) ended = true;
+    text(((millis()-t)%700>350 || !cursor) ? line : line + '|', x, y);
+    if(!ended && n >= text.length() && millis()-t > rate) ended = true;
 
+  }
+  
+  void align(int a) {
+    align = valign = a;
+  }
+  
+  void align(int h, int v) {
+    align = h;
+    valign = v;
   }
   
   void clean() {

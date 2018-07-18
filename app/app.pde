@@ -7,6 +7,8 @@ import android.view.View;
 
 boolean DEV_MODE = true; 
 
+int codeDuration = 4;
+
 PFont  ledFont;
 UI ui;
 
@@ -22,8 +24,13 @@ void setup() {
   ui = new UI();
   ui.header = "************  FEAR FACTOR Access Terminal  ************";
   ui.footer = "*** WARNING ** Unauthorized Use Prohibited ** WARNING ***";
-  ui.welcomeMessage("Please press START to begin").play(1500);
+  ui.welcomeMessage("Please press START to begin.").play(500);
   ui.startButton.text = "START";
+  
+  ui.directions.text = "Please record the following security\nverification code:";
+  ui.clock.text = ("********************").substring(0, codeDuration-1);
+  
+  ui.numpadDirections.text = "Enter the security verification code.";
   
   ui.startButton.x = width/2;
   ui.startButton.y = height*0.6;
@@ -60,6 +67,6 @@ void smoothClear() {
 
 void touchStarted() {
 
-  if(ui.startButton.isTouched()) ui.currentStage++;
+    ui.triggerInteractions();
 
 }

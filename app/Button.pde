@@ -9,8 +9,10 @@ class Button {
   float padding = 30;
   float touchArea = 60;
   
-  float w = 0;
-  float h = 0;
+  float width = -1;
+  float height = -1;
+  
+  int value;
  
   Button() {
     
@@ -24,11 +26,20 @@ class Button {
     
     textSize(fontSize);
     textAlign(CENTER, CENTER);
+    textLeading(fontSize);
     text(text, x, y);
     
-    rectMode(CENTER);
-    rect(x, y, textWidth(text)+2*padding, fontSize*lineHiehgt);
+    float w = (width > 0) ? width : textWidth(text)+2*padding;
+    float h = (height > 0) ? height : fontSize*lineHiehgt;
     
+    rectMode(CENTER);
+    rect(x, y, w, h);
+    
+  }
+  
+  void autoSize() {
+    width = -1;
+    height = -1;
   }
   
   boolean isTouched() {
@@ -39,9 +50,11 @@ class Button {
   
   private float[] getRect() {
     textSize(fontSize);
+    float w = (width > 0) ? width : textWidth(text)+2*padding;
+    float h = (height > 0) ? height : fontSize*lineHiehgt;
     float[] rect = new float[4];
-    rect[2] = textWidth(text)+2*padding+touchArea;
-    rect[3] = fontSize*lineHiehgt+touchArea;
+    rect[2] = w+touchArea;
+    rect[3] = h+touchArea;
     rect[0] = x-rect[2]/2;
     rect[1] = y-rect[3]/2;
     return rect;
