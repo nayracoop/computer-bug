@@ -7,10 +7,12 @@ import android.view.View;
 
 boolean DEV_MODE = true; 
 
+int codeLength = 9;
 int codeDuration = 4;
+int maxAttempts = 3;
 
 PFont  ledFont;
-UI ui;
+UI cb;
 
 void setup() {
   
@@ -20,24 +22,22 @@ void setup() {
   
   
   ledFont = createFont("led_counter-7.ttf", 96);
+  textFont(ledFont);
   
-  ui = new UI();
-  ui.header = "************  FEAR FACTOR Access Terminal  ************";
-  ui.footer = "*** WARNING ** Unauthorized Use Prohibited ** WARNING ***";
-  ui.welcomeMessage("Please press START to begin.").play(500);
-  ui.startButton.text = "START";
+  cb = new UI(codeLength, codeDuration, maxAttempts);
   
-  ui.directions.text = "Please record the following security\nverification code:";
-  ui.clock.text = ("********************").substring(0, codeDuration-1);
+  cb.header = "************  FEAR FACTOR Access Terminal  ************";
+  cb.footer = "*** WARNING ** Unauthorized Use Prohibited ** WARNING ***";
+  cb.welcomeMessage.text = "Please press START to begin.";
+  cb.startButton.text = "START";
+  cb.directions.text = "Please record the following security\nverification code:";
+  cb.numpadDirections.text = "Enter the security verification code.";
+  cb.correctMessage.text = "CORRECT\nLOCK DEACTIVATED";
+  cb.errorMessage.text = "***************\n*****ERROR*****\n***************";
   
-  ui.numpadDirections.text = "Enter the security verification code.";
-  
-  ui.startButton.x = width/2;
-  ui.startButton.y = height*0.6;
-  
+  cb.start();
   
   if(!DEV_MODE) {
-    // Mantener pantalla encendida
     getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
 
@@ -45,28 +45,26 @@ void setup() {
 
 void draw() {
   
-  background(0);
-  //smoothClear();
+  //background(0);
+  smoothClear();
   
-  ui.show();
+  cb.show();
   //filter(BLUR, 6);
   //ui.show();
-  
-  
-   
   
 }
 
 void smoothClear() {
-  blendMode(SUBTRACT);
-  rectMode(CORNER);
-  fill(1);
-  rect(0,0,width,height);
-  blendMode(BLEND);
+  //blendMode(SUBTRACT);
+  fill(0,60);
+  noStroke();
+  rect(width/2,height/2,width,height);
+  fill(0,255,0);
+  stroke(0,255,0);
+  noFill();
+  //blendMode(BLEND);
 }
 
 void touchStarted() {
-
-    ui.triggerInteractions();
-
+  cb.triggerInteractions();
 }

@@ -12,7 +12,8 @@ class Button {
   float width = -1;
   float height = -1;
   
-  int value;
+  boolean isTouched = false;
+  int touchTime = millis();
  
   Button() {
     
@@ -24,16 +25,27 @@ class Button {
   
   void display() {
     
+    if(isTouched && millis()-touchTime > 100) isTouched = false;
+    
     textSize(fontSize);
     textAlign(CENTER, CENTER);
     textLeading(fontSize);
-    text(text, x, y);
     
     float w = (width > 0) ? width : textWidth(text)+2*padding;
     float h = (height > 0) ? height : fontSize*lineHiehgt;
     
+    if(isTouched) fill(0,255,0); 
     rectMode(CENTER);
     rect(x, y, w, h);
+    
+    if(isTouched) fill(0);
+    text(text, x, y);
+    
+    if(isTouched) {
+      fill(0,255,0);
+      noFill();
+      if(millis()-touchTime > 100) isTouched = false;
+    }
     
   }
   
@@ -44,8 +56,10 @@ class Button {
   
   boolean isTouched() {
     float[] rect = getRect();
-    for (int i = 0; i < touches.length; i++) if(touches[i].x > rect[0] && touches[i].x < rect[0] + rect[2] && touches[i].y > rect[1] && touches[i].y < rect[1] + rect[3]) return true;
-    return false;
+    isTouched = false;
+    touchTime = millis();
+    for (int i = 0; i < touches.length; i++) if(touches[i].x > rect[0] && touches[i].x < rect[0] + rect[2] && touches[i].y > rect[1] && touches[i].y < rect[1] + rect[3]) isTouched = true;
+    return isTouched;
   }
   
   private float[] getRect() {
