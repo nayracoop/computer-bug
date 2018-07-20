@@ -159,8 +159,8 @@ class UI {
     switch(currentStage) {
       case 0:
         if(startButton.isTouched()) {
-          setStage(1);
           generateCode();
+          setStage(1);
           setTimeOut(50);
         }
       break;
