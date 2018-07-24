@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.view.View;
 
-boolean DEV_MODE = true; 
+boolean DEV_MODE = false; 
 
 int codeLength = 9;
 int codeDuration = 4;
