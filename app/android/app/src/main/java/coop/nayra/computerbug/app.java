@@ -58,11 +58,6 @@ public void setup() {
   cb.errorMessage.text = "***************\n*****ERROR*****\n***************";
   
   cb.start();
-  
-  if(!DEV_MODE) {
-    getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-  }
-
 }
 
 public void draw() {
