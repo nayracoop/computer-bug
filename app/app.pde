@@ -9,7 +9,7 @@ boolean DEV_MODE = false;
 
 int codeLength = 9;
 int codeDuration = 4;
-int maxAttempts = 3;
+int maxAttempts = 1;
 
 PFont  ledFont;
 UI cb;

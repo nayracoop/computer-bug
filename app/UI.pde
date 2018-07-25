@@ -145,7 +145,8 @@ class UI {
         errorMessage.clean();
         errorMessage.play(250);
         attempts++;
-        setTimeOut((attempts < maxAttempts) ? 2000 : 8000);
+        if(maxAttempts == 1) setTimeOut(15000);
+        else setTimeOut((attempts < maxAttempts) ? 2000 : 8000);
       break;
     }
   }
@@ -177,6 +178,13 @@ class UI {
           } else if(value == "Del") inputCode.backSpace();
           else if(inputCode.text.equals(code.text)) setStage(3);
           else setStage(4);
+        }
+      break;
+      case 4:
+        if(errorMessage.ended) {
+          generateCode();
+          setTimeOut(0);
+          setStage(1);
         }
       break;
     }

@@ -31,7 +31,7 @@ boolean DEV_MODE = false;
 
 int codeLength = 9;
 int codeDuration = 4;
-int maxAttempts = 1;
+int maxAttempts = 3;
 
 PFont  ledFont;
 UI cb;
@@ -58,11 +58,6 @@ public void setup() {
   cb.errorMessage.text = "***************\n*****ERROR*****\n***************";
   
   cb.start();
-  
-  if(!DEV_MODE) {
-    getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-  }
-
 }
 
 public void draw() {
@@ -477,8 +472,7 @@ class UI {
         errorMessage.clean();
         errorMessage.play(250);
         attempts++;
-        if(maxAttempts == 1) setTimeOut(15000);
-        else setTimeOut((attempts < maxAttempts) ? 2000 : 8000);
+        setTimeOut((attempts < maxAttempts) ? 2000 : 8000);
       break;
     }
   }
@@ -510,13 +504,6 @@ class UI {
           } else if(value == "Del") inputCode.backSpace();
           else if(inputCode.text.equals(code.text)) setStage(3);
           else setStage(4);
-        }
-      break;
-      case 4:
-        if(errorMessage.ended) {
-          generateCode();
-          setTimeOut(0);
-          setStage(1);
         }
       break;
     }
