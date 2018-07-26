@@ -3,6 +3,7 @@ package coop.nayra.computerbug;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.support.v7.app.AppCompatActivity;
 
@@ -20,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     frame.setId(CompatUtils.getUniqueViewId());
     setContentView(frame, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 
                                                      ViewGroup.LayoutParams.MATCH_PARENT));
-    
+
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     sketch = new app();
     
     PFragment fragment = new PFragment(sketch);
