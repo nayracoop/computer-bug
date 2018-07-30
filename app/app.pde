@@ -7,7 +7,7 @@ import android.view.View;
 
 boolean DEV_MODE = false; 
 
-int codeLength = 9;
+int codeLength = 8;
 int codeDuration = 4;
 int maxAttempts = 1;
 
