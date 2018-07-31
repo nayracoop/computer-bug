@@ -1,7 +1,7 @@
 class Numpad {
   
   int keyWidth = 160;
-  int keyHeight = 110;
+  int keyHeight = 108;
   String[] keys = { "E\nN\nT\nE\nR", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Clr", "0", "Del" };
   Button[] buttons = new Button[keys.length];
   
